@@ -9,3 +9,9 @@ def solution(x, n):
         #print(answer[i-1])
     
     return answer
+
+
+# 다른 사람 풀이
+# def number_generator(x, n):
+#     
+#     return [i * x + x for i in range(n)]
