@@ -7,3 +7,13 @@ def solution(arr):
     if len(answer) == 0:
         answer=[-1]
     return answer
+
+
+# 다른 풀이
+def solution(arr):
+    answer = []
+    idx = arr.index(min(arr))
+    answer = arr[:idx] + arr[idx+1:]
+    if len(answer) == 0:
+        return [-1]
+    return answer

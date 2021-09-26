@@ -13,3 +13,9 @@ def solution(n):
 #     ls = list(str(n))
 #     ls.sort(reverse = True)
 #     return int("".join(ls))
+
+
+# 다른 풀이
+def solution(n):
+    answer = int(''.join(sorted(list(str(n)), reverse=True)))
+    return answer

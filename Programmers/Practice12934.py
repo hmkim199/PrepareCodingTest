@@ -9,3 +9,23 @@ def solution(n):
         answer = math.sqrt(n) + 1
         answer *= answer
     return answer
+
+
+# 다른 풀이
+import math
+
+def solution(n):
+    answer = -1
+    x = math.sqrt(n)
+    if x == int(x):
+        answer = (x+1)**2
+    return answer
+
+
+# 다른 사람 풀이
+def solution(n):
+    answer = -1
+    x = n ** (1/2)
+    if x == int(x):
+        answer = (x+1)**2
+    return answer

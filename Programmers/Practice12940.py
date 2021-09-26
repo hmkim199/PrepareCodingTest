@@ -9,3 +9,17 @@ def solution(n, m):
             break
     answer.append(answer[0] * (n // answer[0]) * (m // answer[0]))
     return answer
+
+
+#다른 풀이 - 유클리드 호제법
+def solution(n, m):
+    answer = []
+    a, b = max(n, m), min(n, m)
+    r = 1
+    while r > 0:
+        r = a % b
+        a, b = b, r
+    answer.append(a)
+    answer.append(n*m//a)
+        
+    return answer

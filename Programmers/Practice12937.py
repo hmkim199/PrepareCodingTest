@@ -8,3 +8,11 @@ def solution(num):
     else:
         answer = "Odd"
     return answer
+
+
+# 다른 풀이
+def solution(num):
+    answer = 'Odd'
+    if num % 2 == 0:
+        answer = "Even"
+    return answer
