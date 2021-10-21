@@ -13,3 +13,8 @@ def solution(s):
     answer = s.isdigit() if len(s) == 4 or len(s) == 6 else False
 
     return answer
+
+
+# 타인 코드
+def alpha_string46(s):
+    return s.isdigit() and len(s) in (4, 6)
