@@ -16,3 +16,15 @@ def solution(sizes):
     answer = w * h
     
     return answer
+
+
+# 내 코드 수정
+def solution(sizes):
+    w, h = 0, 0
+
+    for l, r in sizes:
+        l, r = max(l, r), min(l, r)
+        w = max(w, l)
+        h = max(h, r)
+        
+    return w * h
