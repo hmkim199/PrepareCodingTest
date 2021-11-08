@@ -12,3 +12,15 @@ def solution(n):
     for i in range(len(answer)-1, -1, -1):
         result += int(answer[i]) * (3**(len(answer)-1-i))
     return result
+
+
+# 현재 코드
+def solution(n):
+    answer = ""
+    base = 3
+    q = n
+    while q != 0:
+        answer += str(q % base)
+        q = q // base
+    
+    return int(answer, base)
