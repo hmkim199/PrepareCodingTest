@@ -3,6 +3,4 @@
 
 x, y, w, h = map(int, input().split())
 
-dist = [abs(w-x), abs(0-x), abs(h-y), abs(0-y)]
-
-print(min(dist))
+print(min(x, y, w-x, h-y))
