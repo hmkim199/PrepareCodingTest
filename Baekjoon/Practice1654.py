@@ -7,14 +7,16 @@ lines = []
 for _ in range(K):
     lines.append(int(input()))
 
-length = sum(lines)//K
-
-while True:
+start = 1
+end = max(lines)
+while start <= end:
     count = 0
+    middle = (start+end)//2
     for line in lines:
-        count += line // length
+        count += line // middle
     if count >= N:
-        break
-    length -= 1
-
-print(length)
+        start = middle + 1
+    else:
+        end = middle - 1
+    
+print((start+end)//2)
