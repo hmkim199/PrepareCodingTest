@@ -8,7 +8,7 @@ A.sort()
 M = int(input())
 B = list(map(int, input().split()))
 
-
+# start 가 -1인 경우 생각해....
 def binarySearch(search_num, target_list):
     start = 0
     end = len(target_list)-1

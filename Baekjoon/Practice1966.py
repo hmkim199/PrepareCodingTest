@@ -13,6 +13,7 @@ for _ in range(testcases):
     for i in range(len(importance)):
         l = [i, importance[i]]
         indexed_importance.append(l)
+        
     while True:
         priority = max(indexed_importance, key=lambda x: x[1])[1]
         if indexed_importance[0][1] == priority:
