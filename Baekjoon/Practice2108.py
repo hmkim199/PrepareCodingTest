@@ -1,5 +1,8 @@
 # https://www.acmicpc.net/problem/2108
 # 통계학
+
+# input()으로 받으면 시간초과 남. sys.stdin.readline()을 쓰니 바로 통과.
+
 import sys
 from collections import Counter
 
