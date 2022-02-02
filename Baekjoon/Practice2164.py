@@ -23,13 +23,10 @@ N = int(input())
 nums = [i+1 for i in range(N)]
 idx = 0
 
-while True:
-    if len(nums) - idx > 1:
-        idx += 1
-        nums.append(nums[idx])
-        idx += 1
-    else:
-        break
+while len(nums) - idx > 1:
+    idx += 1
+    nums.append(nums[idx])
+    idx += 1
 
 print(nums[idx])
 
