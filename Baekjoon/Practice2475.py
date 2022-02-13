@@ -36,3 +36,48 @@ print(max(d.values()))
 print(max(d, key=d.get))
 # print(max(d.keys(), key=lambda k: d[k]))
 
+
+# ================================================
+# https://programmers.co.kr/learn/courses/30/lessons/12943
+# 콜라츠 추측
+
+# 예전 풀이
+def solution(num):
+    answer = -1
+    for i in range(500):
+        if num == 1:
+            return i
+        elif num%2 == 0:
+            num /= 2
+        else:
+            num = num * 3 + 1
+    return answer
+
+# 이번 풀이
+def solution(num):
+    answer = 0
+    while answer < 500 and num != 1:
+        if num % 2 == 0:
+            num //= 2
+        else:
+            num = num*3+1
+        answer += 1
+    return answer if answer<500 else -1
+
+
+# =================================================
+# https://programmers.co.kr/learn/courses/30/lessons/12940
+# 최대공약수와 최소공배수
+
+# 예전 풀이
+def solution(n, m):
+    answer = []
+    a, b = max(n, m), min(n, m)
+    r = 1
+    while r > 0:
+        r = a % b
+        a, b = b, r
+    answer.append(a)
+    answer.append(n*m//a)
+        
+    return answer
