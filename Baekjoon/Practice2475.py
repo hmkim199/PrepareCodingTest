@@ -81,3 +81,24 @@ def solution(n, m):
     answer.append(n*m//a)
         
     return answer
+
+
+# 지금 풀이
+def gcd(n, m):
+    # 유클리드 호제법 : a / b = x ... r 나머지가 0일 때의 b 가 최대 공약수
+    while n % m != 0:
+        r = n % m
+        n = m
+        m = r
+    return m
+    
+def lcm(n, m, g):
+    return n * m // g
+
+def solution(n, m):
+    answer = []
+    n, m = max(n, m), min(n, m)
+    g = gcd(n, m)
+    answer.append(g)
+    answer.append(lcm(n, m, g))
+    return answer
