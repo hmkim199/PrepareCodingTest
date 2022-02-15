@@ -30,7 +30,3 @@ print(count)
 
 
 
-
-
-
-
