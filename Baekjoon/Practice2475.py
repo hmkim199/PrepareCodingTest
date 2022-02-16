@@ -3,15 +3,15 @@
 # https://www.acmicpc.net/problem/2475
 # 검증수
 
-# nums = list(map(int, input().split()))
-# nums = [x**2 for x in nums]
-# print(sum(nums)%10)
+nums = list(map(int, input().split()))
+nums = [x**2 for x in nums]
+print(sum(nums)%10)
 
 # ===============================================
 # https://www.acmicpc.net/problem/2557
 # Hello World
 
-# print("Hello World!")
+print("Hello World!")
 
 # ===============================================
 # https://www.acmicpc.net/problem/2562
@@ -97,7 +97,7 @@ def lcm(n, m, g):
 
 def solution(n, m):
     answer = []
-    n, m = max(n, m), min(n, m)
+    # n, m = max(n, m), min(n, m) # 없어도 됨
     g = gcd(n, m)
     answer.append(g)
     answer.append(lcm(n, m, g))
