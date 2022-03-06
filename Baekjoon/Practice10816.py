@@ -22,4 +22,4 @@ for card in given_cards:
     else:
         counts.append(0)
 
-print(*counts, sep=" ")
+print(*counts)
