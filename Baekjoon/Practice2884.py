@@ -2,41 +2,41 @@
 # 알람 시계
 
 
-# H, M = map(int, input().split())
+H, M = map(int, input().split())
 
-# total = H * 60 + M
-# result = total - 45
+total = H * 60 + M
+result = total - 45
 
-# if result < 0:
-#     print(23, result%60)
-# else:
-#     print(result // 60, result % 60)
+if result < 0:
+    print(23, result%60)
+else:
+    print(result // 60, result % 60)
 
 
 # ===============================================
 # https://www.acmicpc.net/problem/2908
 # 상수 
 
-# A, B = map(int, input().split())
+A, B = map(int, input().split())
 
-# A, B = int(str(A)[::-1]), int(str(B)[::-1])
+A, B = int(str(A)[::-1]), int(str(B)[::-1])
 
-# print(max(A, B))
+print(max(A, B))
 
 # ===============================================
 # https://www.acmicpc.net/problem/2920
 # 음계 
 
-# ascending = [i+1 for i in range(8)]
+ascending = [i+1 for i in range(8)]
 
-# nums = list(map(int, input().split()))
+nums = list(map(int, input().split()))
 
-# if nums == ascending:
-#     print("ascending")
-# elif nums == ascending[::-1]:
-#     print("descending")
-# else:
-#     print("mixed")
+if nums == ascending:
+    print("ascending")
+elif nums == ascending[::-1]:
+    print("descending")
+else:
+    print("mixed")
 
 # ===============================================
 # https://programmers.co.kr/learn/courses/30/lessons/12932
