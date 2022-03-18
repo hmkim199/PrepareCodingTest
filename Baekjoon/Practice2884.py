@@ -8,7 +8,7 @@ total = H * 60 + M
 result = total - 45
 
 if result < 0:
-    print(23, result%60)
+    print(23, result % 60)
 else:
     print(result // 60, result % 60)
 
@@ -51,6 +51,6 @@ def solution(n):
 # 자릿수 더하기
 
 def solution(n):
-    answer = sum(list(map(int, str(n))))
+    answer = sum(map(int, str(n)))
 
     return answer
