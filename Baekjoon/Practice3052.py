@@ -40,3 +40,59 @@ elif 60 <= num < 70:
     print("D")
 else:
     print("F")
+
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/12930
+# 이상한 문자 만들기
+
+# 예전 풀이
+def solution(s):
+        return " ".join(map(lambda x: "".join([a.lower() if i % 2 else a.upper() for i, a in enumerate(x)]), s.split(" ")))
+
+# 이번 풀이
+def solution(s):
+    answer = ""
+    idx = 0
+    for c in s:
+        if c.isalpha():
+            if idx%2 == 0:
+                answer += c.upper()
+            else:
+                answer += c.lower()
+            idx += 1
+        else:
+            idx = 0
+            answer += c
+    
+    return answer
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/12928
+# 약수의 합
+
+# 예전 풀이
+import math
+
+def solution(n):
+    answer = 0
+    
+    for i in range(1, int(math.sqrt(n))+1):
+        if n % i == 0:
+            answer += i
+            answer += (n//i)
+
+            if n//i == i:
+                answer -= i
+    return answer
+
+
+# 이번 풀이
+def solution(n):
+    answer = 0
+    for i in range(1, int(n**(1/2)+1)):
+        if n % i == 0:
+            answer += i
+            if n//i != i:
+                answer += n//i
+    return answer
