@@ -17,13 +17,13 @@ T = int(input())
 
 for _ in range(T):
     testcase = input()
-    answer = [0 for i in range(len(testcase))]
+    score = [0 for i in range(len(testcase))]
     for i in range(len(testcase)):
         if testcase[i] == "O":
-            answer[i] += 1
+            score[i] += 1
             if i != 0:
-                answer[i] += answer[i-1]
-    print(sum(answer))
+                score[i] += score[i-1]
+    print(sum(score))
 
 
 # https://www.acmicpc.net/problem/9498
@@ -47,8 +47,8 @@ else:
 # 이상한 문자 만들기
 
 # 예전 풀이
-def solution(s):
-        return " ".join(map(lambda x: "".join([a.lower() if i % 2 else a.upper() for i, a in enumerate(x)]), s.split(" ")))
+# def solution(s):
+#         return " ".join(map(lambda x: "".join([a.lower() if i % 2 else a.upper() for i, a in enumerate(x)]), s.split(" ")))
 
 # 이번 풀이
 def solution(s):
@@ -72,19 +72,19 @@ def solution(s):
 # 약수의 합
 
 # 예전 풀이
-import math
+# import math
 
-def solution(n):
-    answer = 0
+# def solution(n):
+#     answer = 0
     
-    for i in range(1, int(math.sqrt(n))+1):
-        if n % i == 0:
-            answer += i
-            answer += (n//i)
+#     for i in range(1, int(math.sqrt(n))+1):
+#         if n % i == 0:
+#             answer += i
+#             answer += (n//i)
 
-            if n//i == i:
-                answer -= i
-    return answer
+#             if n//i == i:
+#                 answer -= i
+#     return answer
 
 
 # 이번 풀이
