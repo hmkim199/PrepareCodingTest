@@ -2,10 +2,10 @@
 # A+B - 3
 
 
-# T = int(input())
-# for _ in range(T):
-#     A, B = map(int, input().split())
-#     print(A+B)
+T = int(input())
+for _ in range(T):
+    A, B = map(int, input().split())
+    print(A+B)
 
 
 # https://www.acmicpc.net/problem/10951
@@ -17,3 +17,13 @@ while True:
         print(A+B)
     except:
         break
+
+
+# https://www.acmicpc.net/problem/10952
+# A+B - 5
+
+while True:
+    A, B = map(int, input().split())
+    if A+B == 0:
+        break
+    print(A+B)
