@@ -18,3 +18,22 @@ print(ord(s))
 N = int(input())
 nums = map(int, list(input()))
 print(sum(nums))
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/12917
+# 문자열 내림차순으로 배치하기
+
+def solution(s):
+    return ''.join(sorted(s, reverse=True))
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/12916
+# 문자열 내 p와 y의 개수
+
+def solution(s):
+    answer = True
+    s = s.lower()
+    if s.count("p") != s.count("y"):
+        answer = False
+
+    return answer
