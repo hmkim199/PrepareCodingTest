@@ -16,3 +16,9 @@ def solution(strings, n):
     answer.sort()
     answer.sort(key=lambda x: x[n])
     return answer
+
+
+# 풀이 3
+def solution(strings, n):
+    answer = sorted(strings, key=lambda x: (x[n], x))
+    return answer
