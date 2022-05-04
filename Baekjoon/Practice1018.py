@@ -61,5 +61,3 @@ for k in range(N-7):
         min_count = min(min_count, repaint_w, repaint_b)
 
 print(min_count)
-        
-        
