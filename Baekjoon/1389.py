@@ -30,6 +30,9 @@
 #                     queue.append(friend)
 
 # 그냥 bfs로는 거리 모름.... 다익스트라로 할까??? 아님 더 찾아볼까?
+# 라는 생각 후 푼 방법 -> bfs + 백트래킹으로 최단 경로 구하기!
+# 1의 케빈 베이컨 수 : dist(1, 1) + dist(1, 2) + dist(1, 3) + ... + dist(1, N)
+# 각 노드의 케빈 베이컨 수를 위와 같은 방법으로 구해서 min index 출력
 
 from collections import deque
 
@@ -63,30 +66,17 @@ def bfs(i, j):
                 predecessor[friend] = user
 
     distance = 0
-    # res_str = ""  # 리턴할 결과 문자열
     temp = j
     while temp:
         distance += 1
-        # res_str = str(temp) + " " + str(res_str)  # 결과 문자열에 역 이름을 더하고
         temp = predecessor[temp]  # temp를 다음 노드로 바꿔준다
     return distance-1
-
- 
-# def back_track(destination):
-#     res_str = ""  # 리턴할 결과 문자열
-#     temp = destination
-#     while temp:
-#         res_str = f"{temp.station_name} {res_str}"  # 결과 문자열에 역 이름을 더하고
-#         temp = predecessor[temp]  # temp를 다음 노드로 바꿔준다
-#     return res_str
 
 
 kevin_nums = [0 for _ in range(N+1)]
 # 1~N까지의 각각의 케빈 베이컨 수 구하기
-# print(bfs(1, 5))
 for i in range(1, N+1):
     for j in range(1, N+1):
         kevin_nums[i] += bfs(i, j)
-        # print(i, j, end=": ")
-        # print(bfs(i, j))
+
 print(kevin_nums.index(min(kevin_nums[1:])))
