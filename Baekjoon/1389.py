@@ -3,29 +3,30 @@
 
 from collections import deque
 
-class UserNode:
-    """백준 유저 노드"""
-    def __init__(self, user_id):
-        self.user_id = user_id
-        self.adjacent_users = []
-        self.visited = False
-    
-    def add_connection(self, user):
-        self.adjacent_users.append(user)
+N, M = map(int, input())
+friends = [
+    set() for _ in range(N+1)
+]
 
-  
-def bfs(graph, start_node):
-    queue = deque()
-    
-    for user_node in graph.values():
-        user_node.visited = False
-    
-    start_node.visited = True
-    queue.append(start_node)
+for _ in range(M):
+    a, b = map(int, input().split())
+    friends[a].append(b)
+    friends[b].append(a)
 
-    while queue:
-        current_user = queue.popleft()
-        for neighbor in current_user.adjacent_users:
-            if not neighbor.visited:
-                neighbor.visited = True
-                queue.append(neighbor)
+for i in range(N+1):
+    friends[i] = sorted(friends[i])
+
+kevin_nums = [0 for _ in range(N+1)]
+def bfs():
+    for i in range(1, N+1):
+        visited = [False for _ in range(N+1)]
+        queue = deque([i])
+        visited[i] = True
+        while queue:
+            user = queue.popleft()
+            for friend in friends[user]:
+                if not visited[friend]:
+                    visited[friend] = True
+                    queue.append(friend)
+
+# 그냥 bfs로는 거리 모름.... 다익스트라로 할까??? 아님 더 찾아볼까?
