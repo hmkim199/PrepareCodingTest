@@ -113,6 +113,7 @@ for i in range(2, N+1):
 # https://programmers.co.kr/learn/courses/30/lessons/17682
 # [1차] 다트 게임
 
+# 저번 풀이
 # def solution(dartResult):
 #     answer = []
 #     for i in range(len(dartResult)):
@@ -133,3 +134,44 @@ for i in range(2, N+1):
 #             else:
 #                 answer[-1] *= -1
 #     return sum(answer)
+
+# 이번 풀이
+def solution(dartResult):
+    answer = []
+    is_num = True
+    is_before_digit = False
+    for c in dartResult:
+        if c.isdigit():
+            if is_before_digit:
+                answer[-1] = answer[-1]*10+int(c)
+            else:
+                answer.append(int(c))
+            is_before_digit = True
+        else:
+            is_before_digit = False
+            if c == "D":
+                answer[-1] **= 2
+            elif c == "T":
+                answer[-1] **= 3
+            elif c == "*":
+                answer[-1] *= 2
+                if len(answer) >= 2:
+                    answer[-2] *= 2
+            elif c == "#":
+                answer[-1] *= -1
+        
+    return sum(answer)
+
+
+# ==============================================================
+# https://programmers.co.kr/learn/courses/30/lessons/12903
+# 가운데 글자 가져오기
+
+def solution(s):
+    answer = ''
+    mid = len(s)//2
+    if len(s) % 2 == 0:
+        answer = s[mid-1:mid+1]
+    else:
+        answer = s[mid]
+    return answer
