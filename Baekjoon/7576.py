@@ -42,4 +42,5 @@ if len(queue) + empty != N * M:
         for j in range(M):
             if tomatoes[i][j] == 0:
                 result = -1
+                break
 print(result)
