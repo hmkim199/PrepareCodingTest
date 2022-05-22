@@ -16,9 +16,9 @@ for _ in range(T):
         continue
 
     queue = deque()
-    visited = []
+    visited = set()
     queue.append([A, ""])
-    visited.append([A, ""])
+    visited.add(A)
     found = False
     while queue and not found:
         temp, operations = queue.popleft()
@@ -36,9 +36,8 @@ for _ in range(T):
                 result.append(operations+dic[i])
                 found = True
                 break
-            if [DSLR[i], operations+dic[i]] not in visited:
-                queue.append([DSLR[i], operations+dic[i]])
-                visited.append([DSLR[i], operations+dic[i]])
+            queue.append([DSLR[i], operations+dic[i]])
+            visited.add(DSLR[i])
 
 print(*result, sep="\n")
         
