@@ -109,3 +109,63 @@ for i in range(1, N):
         creator = li[0]
         break
 print(creator)
+
+# https://programmers.co.kr/learn/courses/30/lessons/17681
+# [1차] 비밀지도
+
+def solution(n, arr1, arr2):
+    answer = []
+    for i in range(n):
+        originNum = bin(arr1[i] | arr2[i])[2:]
+        originNum = '0' * (n-len(originNum)) + originNum
+        mark = ''
+        for j in originNum:
+            if j == '1':
+                mark += "#"
+            else:
+                mark += " "
+        answer.append(mark)
+    return answer
+
+# https://programmers.co.kr/learn/courses/30/lessons/82612
+# 부족한 금액 계산하기
+def solution(price, money, count):
+    answer = -1
+    needMoney = 0
+    for i in range(1, count+1):
+        needMoney += price*i
+    answer = needMoney - money
+    if answer > 0:
+        return answer
+    else:
+        answer = 0
+    return answer
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/87389
+# 나머지가 1이 되는 수 찾기
+def solution(n):
+    for x in range(2, n):
+        if n % x == 1:
+            return x
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/86491
+# 최소직사각형
+def solution(sizes):
+    w, h = 0, 0
+
+    for l, r in sizes:
+        l, r = max(l, r), min(l, r)
+        w = max(w, l)
+        h = max(h, r)
+        
+    return w * h
+
+# https://programmers.co.kr/learn/courses/30/lessons/12901
+# 2016년
+import datetime
+def solution(a, b):
+    days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+    answer = days[datetime.date(2016, a, b).weekday()]
+    return answer
