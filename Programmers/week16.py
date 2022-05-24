@@ -77,7 +77,7 @@ B = list(map(int, input().split()))
 for i in B:
     start = 0
     end = N-1
-    middle = (start+end)//2
+    # middle = (start+end)//2
 
     found = False
     while start <= end:
@@ -138,7 +138,6 @@ for i in range(2, N+1):
 # 이번 풀이
 def solution(dartResult):
     answer = []
-    is_num = True
     is_before_digit = False
     for c in dartResult:
         if c.isdigit():
