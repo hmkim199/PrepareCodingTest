@@ -13,16 +13,18 @@ for _ in range(N):
 
 for i in range(N):
     for j in range(N):
-        if not visited[i][j]:
+        if not visited[i][j] and adjacent_matrix[i][j] == 1:
             queue = deque()
             queue.append([i, j])
             while queue:
                 x, y = queue.popleft()
-                for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-                    if x+dx < 0 or x+dx >= N or y+dy < 0 or y+dy >= N:
-                        continue
-                    if not visited[x+dx][y+dy] and (adjacent_matrix[x+dx][y+dy] == 1 or x+dx==y+dy):
-                        visited[x+dx][y+dy] = 1
-                        queue.append([x+dx, y+dy])
+                for k in range(N):
+                    if adjacent_matrix[y][k] == 1 and not visited[y][k]:
+                        visited[y][k] = 1
+                        visited[x][k] = 1
+                        visited[i][k] = 1
+                        queue.append([y, k])
+        if i==j:
+            visited[i][j] = 1
 
 print(*visited, sep="\n")
