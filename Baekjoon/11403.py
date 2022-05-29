@@ -24,14 +24,14 @@ for i in range(N):
         if adj[i][j] == 1:
             visited = [False] * N
             queue = deque()
-            visited[j] = True
+            visited[j] = True  # 큐에 넣을 친구를 방문 처리 해줘야 함!!!
             queue.append(j)
             while queue:
                 now = queue.popleft()
                 for k in range(N):
                     if adj[now][k] == 1 and now != i and not visited[k]:
                         answer[i][k] = 1
-                        visited[k] = True
+                        visited[k] = True  # 큐에 넣을 친구 방문 처리
                         queue.append(k)
 
 for i in range(N):
