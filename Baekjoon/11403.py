@@ -2,29 +2,31 @@
 # 경로 찾기
 
 from collections import deque
+from copy import deepcopy
 
 
 N = int(input())
-adjacent_matrix = []
-visited = [[0 for _ in range(N)] for _ in range(N)]
+adj = []
 
 for _ in range(N):
-    adjacent_matrix.append(list(map(int, input().split())))
+    adj.append(list(map(int, input().split())))
+
+answer = deepcopy(adj)
 
 for i in range(N):
     for j in range(N):
-        if not visited[i][j] and adjacent_matrix[i][j] == 1:
+        if adj[i][j] == 1:
+            visited = [False] * N
             queue = deque()
-            queue.append([i, j])
+            visited[j] = True
+            queue.append(j)
             while queue:
-                x, y = queue.popleft()
+                now = queue.popleft()
                 for k in range(N):
-                    if adjacent_matrix[y][k] == 1 and not visited[y][k]:
-                        visited[y][k] = 1
-                        visited[x][k] = 1
-                        visited[i][k] = 1
-                        queue.append([y, k])
-        if i==j:
-            visited[i][j] = 1
+                    if adj[now][k] == 1 and now != i and not visited[k]:
+                        answer[i][k] = 1
+                        visited[k] = True
+                        queue.append(k)
 
-print(*visited, sep="\n")
+for i in range(N):
+    print(*answer[i])
