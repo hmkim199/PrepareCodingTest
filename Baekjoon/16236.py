@@ -1,7 +1,7 @@
 # # https://www.acmicpc.net/problem/16236
 # # 아기 상어
 
-# # 예제 4번 통과 못 함. 답은 60이라는데 나는 56 나옴.
+# # 이 풀이론 예제 4번 통과 못 함. 답은 60이라는데 나는 56 나옴.
 
 # from collections import deque
 
@@ -62,10 +62,14 @@
 # print(time)
 
 
+
+
+# ========================================================================================
+
 # https://www.acmicpc.net/problem/16236
 # 아기 상어
 
-# 예제 4번 통과 못 함. 답은 60이라는데 나는 56 나옴.
+# 풀리긴 했지만 시간 초과.. -> pypy로 통과됨!!!
 
 from collections import deque
 
@@ -79,8 +83,6 @@ shark = 2
 need_fish = shark
 time = 0
 target = [set() for _ in range(7)]
-# print(target[6])
-# visited = [[False for _ in range(N)] for _ in range(N)]
 loc = (0, 0)
 
 # 아기 상어 위치 탐색 저장, 먹을 수 있는 물고기 정보 저장
@@ -88,15 +90,11 @@ for i in range(N):
     for j in range(N):
         if fish[i][j] == 9:
             loc = [i, j]
-            # visited[i][j] = True
             fish[i][j] = 0
         elif fish[i][j] > 0:
             target[fish[i][j]].add((i, j))
-    
-# queue = deque([[loc, time]])
+
 # 각 목표물까지의 거리가 얼마인지 확인(bfs)
-# 먹기
-# 또 거리 확인
 def bfs(target_x, target_y):
     global loc
     visited = [[False for _ in range(N)] for _ in range(N)]
@@ -130,21 +128,20 @@ def find_target():
     else:
         limit = shark
     for i in range(1, limit):
-        # print(shark)
-        # print(target[i])
-        # print(i)
         if len(target[i]) <= 0:
             continue
         for x, y in target[i]:
             dist = bfs(x, y)
             if dist == -1:
-                return -1, -1
+                continue
             options.append([(x, y), dist])
     if len(options) == 0:
         return -1, -1
     options.sort(key=lambda x: (x[1], x[0]))
     return options[0]
 
+# 먹기
+# 또 거리 확인
 def eat():
     global time
     global loc
@@ -155,7 +152,6 @@ def eat():
         options += len(target[i])
     while options > 0:
         now, t = find_target()
-        # print(now)
         if now == -1 and t == -1:
             return time
         time += t
@@ -167,42 +163,7 @@ def eat():
         if need_fish == 0:
             shark += 1
             need_fish = shark
-            # print(shark)
-        # print(target)
-        # print(target)
-        # print(len(target))
+
     return time
 
 print(eat())
-
-# # 먹을 수 있는 물고기를 따로 저장해서 거리 우선순위 조건 확인하고 먹기
-# while queue and sum(target[1:shark]) > 0:
-#     queue
-#     now, t = queue.popleft()
-
-#     for dx, dy in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
-#         x = now[0]+dx
-#         y = now[1]+dy
-#         if x < 0 or x >= N or y < 0 or y >= N:
-#             continue
-#         if 0 < fish[x][y] < shark and not visited[x][y]:
-#             target[fish[x][y]] -= 1
-#             fish[x][y] = 0
-#             visited[x][y] = True
-#             need_fish -= 1
-#             queue = deque()
-#             visited =  [[False for _ in range(N)] for _ in range(N)]
-#             visited[x][y] = True
-#             time = t+1
-#             queue.append([[x, y], t+1])
-
-#             if need_fish <= 0:
-#                 shark += 1
-#                 need_fish = shark
-#             break
-
-#         elif fish[x][y] in (shark, 0) and not visited[x][y]:
-#             visited[x][y] = True
-#             queue.append([[x, y], t+1])
-   
-# print(time)
