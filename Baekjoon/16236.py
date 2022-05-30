@@ -69,7 +69,7 @@
 # https://www.acmicpc.net/problem/16236
 # 아기 상어
 
-# 풀리긴 했지만 시간 초과.. -> pypy로 통과됨!!!
+# 풀리긴 했지만 시간 초과.. -> pypy로 통과됨!!! => python 으로 통과한 사람들도 있어서 더 생각해보면 좋을듯.
 
 from collections import deque
 
