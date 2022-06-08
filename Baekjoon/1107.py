@@ -11,7 +11,7 @@ if M != 0:
 
 now = 100
 answer = abs(now-N) # 최악의 경우 +또는 -로만 움직임
-for channel in range(1000001): # 사실 검색해서 나온 게 이 1000001이라는 수였는데, 이 range를 조금 더 고민해보자. 테스트로 888889 해도 통과함. 888888은 통과 못함.
+for channel in range(1000001):
     channel_str = str(channel)
     for n in channel_str:
         if n in broken:
