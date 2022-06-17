@@ -127,3 +127,26 @@ def solution(new_id):
         
             
     return answer
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/77484
+# 로또의 최고 순위와 최저 순위
+
+def solution(lottos, win_nums):
+    answer = []
+    score = 0
+    black = 0
+    win_nums = set(win_nums)
+    for lotto in lottos:
+        if lotto in win_nums:
+            score += 1
+        elif lotto == 0:
+            black += 1
+    
+    answer.append(7-(score+black))
+    answer.append(7-(score))
+    
+    for i in range(len(answer)):
+        if answer[i] > 6:
+            answer[i] = 6
+    return answer 
