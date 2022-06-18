@@ -150,3 +150,53 @@ def solution(lottos, win_nums):
         if answer[i] > 6:
             answer[i] = 6
     return answer 
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/92334
+# 신고 결과 받기
+
+def solution(id_list, report, k):
+    answer = [0 for _ in range(len(id_list))]
+    cnt = {}
+    reports = {}
+    for i in range(len(id_list)):
+        reports[id_list[i]] = (i, set()) # id: index, set() 형태로 저장
+        cnt[id_list[i]] = 0
+    
+    for rep in report:
+        a, b = rep.split()
+        length = len(reports[a][1])
+        reports[a][1].add(b)
+        if length != len(reports[a][1]):
+            cnt[b] += 1
+    
+    for user in reports:
+        for rep in reports[user][1]:
+            if cnt[rep] >= k:
+                answer[reports[user][0]] += 1
+    
+    return answer
+
+# 두 번째 풀이
+def solution(id_list, report, k):
+    answer = [0 for _ in range(len(id_list))]
+    cnt = {}
+    reports = {}
+    for i in range(len(id_list)):
+        id = id_list[i]
+        reports[id] = {"idx": i, "rep": set()}
+        cnt[id] = 0
+    
+    for rep in report:
+        a, b = rep.split()
+        length = len(reports[a]["rep"])
+        reports[a]["rep"].add(b)
+        if length != len(reports[a]["rep"]):
+            cnt[b] += 1
+    
+    for user in reports:
+        for rep in reports[user]["rep"]:
+            if cnt[rep] >= k:
+                answer[reports[user]["idx"]] += 1
+    
+    return answer
