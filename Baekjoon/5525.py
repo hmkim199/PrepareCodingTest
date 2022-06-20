@@ -21,8 +21,6 @@ print(cnt)
 # 시간 초과 때문에 50점에서 한참 머물다가 방식 수정.
 
 N = int(input())
-pn = "I" + "OI" * N
-
 M = int(input())
 S = input()
 
