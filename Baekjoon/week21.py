@@ -1,3 +1,142 @@
+# https://www.acmicpc.net/problem/10816
+# 숫자 카드 2
+
+import sys
+
+N = int(input())
+my_cards = sys.stdin.readline().strip().split()
+cards_count = {}
+for card in my_cards:
+    if card in cards_count:
+        cards_count[card] += 1
+    else:
+        cards_count[card] = 1
+
+M = int(input())
+given_cards = sys.stdin.readline().strip().split()
+
+counts = []
+for card in given_cards:
+    if card in cards_count:
+        counts.append(cards_count[card])
+    else:
+        counts.append(0)
+
+print(*counts, sep=" ")
+
+
+# https://www.acmicpc.net/problem/10828
+# 스택
+import sys
+
+N = int(sys.stdin.readline().strip())
+s = []
+
+for _ in range(N):
+    op = sys.stdin.readline().strip().split()
+
+    if op[0] == "push":
+        s.append(int(op[1]))
+    elif op[0] == "pop":
+        print(s.pop()) if len(s) > 0 else print(-1)
+    elif op[0] == "size":
+        print(len(s))
+    elif op[0] == "empty":
+        print(0) if s else print(1)
+    elif op[0] == "top":
+        print(s[-1]) if s else print(-1) 
+
+# https://www.acmicpc.net/problem/10845
+# 큐
+
+from collections import deque
+import sys
+
+N = int(sys.stdin.readline().strip())
+q = deque()
+
+for _ in range(N):
+    op = sys.stdin.readline().strip().split()
+
+    if op[0] == "push":
+        q.append(int(op[1]))
+    elif op[0] == "pop":
+        print(q.popleft()) if q else print(-1)
+    elif op[0] == "size":
+        print(len(q))
+    elif op[0] == "empty":
+        print(0) if q else print(1)
+    elif op[0] == "front":
+        print(q[0]) if q else print(-1)
+    elif op[0] == "back":
+        print(q[-1]) if q else print(-1)
+
+
+# https://www.acmicpc.net/problem/10866
+# 덱
+
+from collections import deque
+import sys
+
+N = int(input())
+d = deque()
+
+for _ in range(N):
+    op = sys.stdin.readline().strip().split()
+    if op[0] == "push_back":
+        d.append(int(op[1]))
+    elif op[0] == "push_front":
+        d.appendleft(int(op[1]))
+    elif op[0] == "front":
+        print(d[0]) if d else print(-1)
+    elif op[0] == "back":
+        print(d[-1]) if d else print(-1)
+    elif op[0] == "pop_front":
+        print(d.popleft()) if d else print(-1)
+    elif op[0] == "pop_back":
+        print(d.pop()) if d else print(-1)
+    elif op[0] == "size":
+        print(len(d))
+    elif op[0] == "empty":
+        print(0) if d else print(1)
+
+# https://www.acmicpc.net/problem/10989
+# 수 정렬하기 3
+
+from os import sep
+import sys
+
+N = int(input())
+nums = [i+1 for i in range(10001)]
+d = {}
+for _ in range(N):
+    num = int(sys.stdin.readline().rstrip())
+    if num in d:
+        d[num] += 1
+    else: 
+        d[num] = 1
+
+for item in sorted(d.items()):
+    for _ in range(item[1]):
+        print(item[0])
+
+# https://www.acmicpc.net/problem/11050
+# 이항 계수 1
+
+N, K = map(int, input().split())
+
+res = 1
+for i in range(N-K):
+    res *= (N-i)
+for i in range(N-K, 0, -1):
+    res /= i
+
+print(int(res))
+
+
+
+
+
 # https://programmers.co.kr/learn/courses/30/lessons/67256
 # [카카오 인턴] 키패드 누르기
 
@@ -200,3 +339,56 @@ def solution(id_list, report, k):
                 answer[reports[user]["idx"]] += 1
     
     return answer
+
+
+# https://programmers.co.kr/learn/courses/30/lessons/92342
+# 양궁대회
+
+from itertools import combinations
+import copy
+
+def subtract_score(apeach, lion):
+    a = 0
+    l = 0
+    for i in range(len(apeach)):
+        if apeach[i] != 0 and lion[i] <= apeach[i]:
+            a += (10-i)
+        elif 0 <= apeach[i] < lion[i]:
+            l += (10-i)
+    return l - a
+
+def solution(n, info):
+    answer = [0 for _ in range(11)]
+    answer[0] = n
+    is_possible = False
+    pool = []
+    for i in range(len(info)):
+        for _ in range(info[i]+1):
+            pool.append(10-i)
+    
+    combi = set(combinations(pool, n))
+    
+    for c in combi:
+        temp = [0 for _ in range(11)]
+        for t in c:
+            temp[10-t] += 1
+        now = subtract_score(info, answer)
+        sub = subtract_score(info, temp)
+        
+        if sub > now and sub > 0:
+            answer = copy.deepcopy(temp)
+            is_possible = True
+        
+        elif sub == now and sub > 0:
+            for i in range(len(answer)-1, -1, -1):
+                if answer[i] > temp[i]:
+                    break
+                elif answer[i] < temp[i]:
+                    answer = copy.deepcopy(temp)
+                    break  
+            is_possible = True     
+    
+    if is_possible:
+        return answer
+    else:
+        return [-1]
