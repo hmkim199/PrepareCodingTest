@@ -28,9 +28,11 @@ def solution(n, info):
             temp[10-t] += 1
         now = subtract_score(info, answer)
         sub = subtract_score(info, temp)
+        
         if sub > now and sub > 0:
             answer = copy.deepcopy(temp)
             is_possible = True
+        
         elif sub == now and sub > 0:
             for i in range(len(answer)-1, -1, -1):
                 if answer[i] > temp[i]:
@@ -39,6 +41,7 @@ def solution(n, info):
                     answer = copy.deepcopy(temp)
                     break  
             is_possible = True     
+    
     if is_possible:
         return answer
     else:
