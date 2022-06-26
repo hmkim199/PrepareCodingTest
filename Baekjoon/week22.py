@@ -16,3 +16,7 @@ def solution(arr):
         lcm = temp * arr[i] // gcd
     return lcm
 
+
+# https://programmers.co.kr/learn/courses/30/lessons/12952
+# N-Queen
+
