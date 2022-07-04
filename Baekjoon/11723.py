@@ -17,7 +17,7 @@
 #     if op == 'add':
 #         S.add(x)
 #     elif op == 'remove':
-#         S.remove(x)
+#         S.remove(x) # try catch 감싸면 통과래~
 #     elif op == 'check':
 #         if x in S:
 #             print(1)
