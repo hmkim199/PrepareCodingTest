@@ -5,13 +5,13 @@ from collections import deque
 
 
 V = int(input())
-adjacent = [[-1 for _ in range(V)] for _ in range(V)]
+adjacent = [dict() for _ in range(V)]
 visited = [False for _ in range(V)]
 
 
 for _ in range(V):
     info = list(map(int, input().split()))
-    adjacent[info[0]-1][info[0]-1] = 0
+    # adjacent[info[0]-1][info[0]-1] = 0
 
     v = 0
     dist = 0
@@ -28,16 +28,18 @@ q = deque()
 for i in range(V):
     visited[i] = True
     for j in range(V):
-        if not visited[j] and adjacent[i][j] > 0:
+        adj_dist = adjacent[i].get(j)
+        if not visited[j] and adj_dist:
             visited[j] = True
-            q.append([j, adjacent[i][j]])
-            max_dist = max(max_dist, adjacent[i][j])
+            q.append([j, adj_dist])
+            max_dist = max(max_dist, adj_dist)
             while q:
                 prev, dist = q.popleft()
                 max_dist = max(max_dist, dist)
                 for k in range(V):
-                    if not visited[k] and adjacent[prev][k] > 0:
+                    new_adj_dist = adjacent[prev].get(k)
+                    if not visited[k] and new_adj_dist:
                         visited[k] = True
-                        q.append([k, dist + adjacent[prev][k]])
+                        q.append([k, dist + new_adj_dist])
 
 print(max_dist)
