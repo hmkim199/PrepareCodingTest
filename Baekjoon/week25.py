@@ -1,3 +1,110 @@
+# https://www.acmicpc.net/problem/1389
+# 케빈 베이컨의 6단계 법칙
+
+from collections import deque
+
+N, M = map(int, input().split())
+friends = [
+    set() for _ in range(N+1)
+]
+
+for _ in range(M):
+    a, b = map(int, input().split())
+    friends[a].add(b)
+    friends[b].add(a)
+
+for i in range(N+1):
+    friends[i] = sorted(friends[i])
+
+def bfs(i, j):
+    """ i부터 j까지의 최단 경로(거리) 반환"""
+    if i == j:
+        return 0
+    visited = [False for _ in range(N+1)]
+    queue = deque([i])
+    visited[i] = True
+    predecessor = [None for _ in range(N+1)]
+    while queue:
+        user = queue.popleft()
+        for friend in friends[user]:
+            if not visited[friend]:
+                visited[friend] = True
+                queue.append(friend)
+                predecessor[friend] = user
+
+    distance = 0
+    temp = j
+    while temp:
+        distance += 1
+        temp = predecessor[temp]  # temp를 다음 노드로 바꿔준다
+    return distance-1
+
+
+kevin_nums = [0 for _ in range(N+1)]
+# 1~N까지의 각각의 케빈 베이컨 수 구하기
+for i in range(1, N+1):
+    for j in range(1, N+1):
+        kevin_nums[i] += bfs(i, j)
+
+print(kevin_nums.index(min(kevin_nums[1:])))
+
+
+# https://www.acmicpc.net/problem/1463
+# 1로 만들기
+
+count = [0] * 1000001
+count[2] = count[3] = 1
+
+for i in range(4, 1000001):
+    temp = []
+    if i%3 == 0:
+        temp.append(count[i//3] + 1)
+    if i%2 == 0:
+        temp.append(count[i//2] + 1)
+    
+    temp.append(count[i-1] + 1)
+    count[i] = min(temp)
+
+N = int(input())
+
+print(count[N])
+
+
+# https://www.acmicpc.net/problem/1541
+# 잃어버린 괄호
+
+equation = input().split("-")
+result = 0
+for i in range(len(equation)):
+    temp = sum(map(int, equation[i].split("+")))
+    if i == 0:
+        result += temp
+    else:
+        result -= temp
+
+print(result)
+
+
+# https://www.acmicpc.net/problem/1620
+# 나는야 포켓몬 마스터 이다솜
+
+import sys
+
+N, M = map(int, sys.stdin.readline().strip().split())
+
+poketmon = {}
+for i in range(N):
+    p = sys.stdin.readline().strip()
+    poketmon[p] = i+1
+    poketmon[str(i+1)] = p
+
+ans = []
+for _ in range(M):
+    ans.append(poketmon[sys.stdin.readline().strip()])
+    # print(poketmon[input()])
+
+print(*ans, sep='\n')
+
 # # https://school.programmers.co.kr/learn/courses/30/lessons/12924
 # # 숫자의 표현
 
