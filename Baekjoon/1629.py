@@ -1,24 +1,16 @@
 # https://www.acmicpc.net/problem/1629
 # 곱셈
 
-# 틀린 풀이 - 규칙을 저장해서 인덱스로 접근하려 했음..
-r = []
+# 나머지 분배법칙에 따라...
 A, B, C = map(int, input().split())
-r.append(A%C)
-first = r[0] if A > C else -1
-idx = 0 if first != -1 else -1
 
-for i in range(2, B+1):
-    new_r = A**i % C
-    if new_r == first:
-        break
-    if first == -1 and A**i > C:
-        first = new_r
-        idx = i-1
-    r.append(new_r)
+def power(A, B, C):
+    if B == 0:
+        return 1%C
+    half = power(A, B//2, C)
+    if B%2 == 0:
+        return (half * half) % C
+    else:
+        return (half * half * A) % C
 
-print(r)
-if B-idx > 0:
-    print(r[(B-idx)%len(r)-1])
-else:
-    print(r[idx])
+print(power(A, B, C))
