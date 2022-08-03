@@ -1,5 +1,6 @@
-# 
-# 
+# https://school.programmers.co.kr/learn/courses/30/lessons/17687
+# [3차] n진수 게임
+
 
 def solution(n, t, m, p):
 #     진법 n, 미리 구할 숫자의 갯수 t, 게임에 참가하는 인원 m, 튜브의 순서 p
