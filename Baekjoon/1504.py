@@ -1,39 +1,26 @@
 # https://www.acmicpc.net/problem/1504
 # 특정한 최단 경로
 
-# 틀림. 처음 생각나는 가장 무식한 방법. -> 이동하는 길이 다른 노드 거칠 때 더 짧을 수 있다.
+from collections import deque
+
+
 N, E = map(int, input().split())
-dist = {}
+matrix = [[0 for _ in range(N)] for _ in range(N)]
 for _ in range(E):
     a, b, c = map(int, input().split())
-    dist[(a, b)] = c
-    dist[(b, a)] = c
+    matrix[a][b] = c
+    matrix[b][a] = c
 
 v1, v2 = map(int, input().split())
-d1 = dist.get((1, v1))
-if not d1:
-    d1 = 3000
-d2 = dist.get((v1, v2))
-if not d2:
-    d2 = 3000
-d3 = dist.get((v2, N))
-if not d3:
-    d3 = 3000
 
-result = d1+d2+d3
+def bfs(a, b):
+    q = deque()
+    for i in range(a, N):
+        for j in range(N):
+            if matrix[i][j] > 0:
+                q.append([i, j, matrix[i][j]])
 
-d1 = dist.get((1, v2))
-if not d1:
-    d1 = 3000
-d2 = dist.get((v2, v1))
-if not d2:
-    d2 = 3000
-d3 = dist.get((v1, N))
-if not d3:
-    d3 = 3000
+                while 
+# 1 - v1 - v2 - n 의 최소 거리: bfs(1, v1) + bfs(v1, v2) + bfs(v2, n)
+# 1 - v2 - v1 - n 의 최소 거리: bfs(1, v2) + bfs(v2, v1) + bfs(v1, n)
 
-result = min(result, d1+d2+d3)
-if result >= 3000:
-    result = -1
-
-print(result)
