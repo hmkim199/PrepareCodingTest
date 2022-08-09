@@ -135,9 +135,35 @@ def solution(files):
 # https://school.programmers.co.kr/learn/courses/30/lessons/17684
 # [3차] 압축
 
+# 검색해서 풂
+def solution(msg):
+    answer = []
+
+    dictionary = {chr(i): i - 64 for i in range(65, 91)}
+    stack = list(map(str, msg[::-1]))
+    idx = 27
+
+    while stack:
+        w = stack.pop()
+        if stack:
+            while dictionary.get(w + stack[-1]):
+                w += stack.pop()
+                if len(stack) == 0: break
+            answer.append(dictionary.get(w))
+            if stack:
+                dictionary[w + stack[-1]] = idx
+            idx += 1
+        else:
+            answer.append(dictionary.get(w))
+
+    return answer
+
 
 # https://school.programmers.co.kr/learn/courses/30/lessons/12905
 # 가장 큰 정사각형 찾기
+
+
+
 
 
 # https://school.programmers.co.kr/learn/courses/30/lessons/17683
