@@ -10,7 +10,7 @@ def solution(dirs):
     for dir in dirs:
         dx, dy = move[dir]
         if -5 <= x+dx <= 5 and -5 <= y+dy <= 5: # 경계 확인
-            
+
             # (출발지, 도착지), (도착지, 출발지) 정보가 visited에 없으면 아직 방문하지 않은 길.
             if ((x, y), (x+dx, y+dy)) and ((x+dx, y+dy), (x, y)) not in visited: 
                 visited.add(((x, y), (x+dx, y+dy)))
@@ -46,3 +46,5 @@ def solution(skill, skill_trees):
             answer += 1
               
     return answer
+
+
