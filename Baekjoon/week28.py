@@ -174,3 +174,128 @@ def solution(n, left, right):
         else:
             answer.append(col + 1)
     return answer
+
+
+# https://www.acmicpc.net/problem/2579
+# 계단 오르기
+
+num = int(input())
+floor = []
+for _ in range(num):
+    floor.append(int(input()))
+
+max_score = [0 for i in range(num)]
+max_score[0] = floor[0]
+if num > 1:
+    max_score[1] = floor[0]+floor[1]
+if num > 2:
+    max_score[2] = max(floor[0]+floor[2], floor[1]+floor[2])
+for i in range(3, num):
+    max_score[i] = max(max_score[i-3]+floor[i-1]+floor[i], max_score[i-2]+floor[i])
+
+print(max_score[-1])
+
+
+# https://www.acmicpc.net/problem/2606
+# 바이러스 
+
+from collections import deque
+
+N = int(input())
+edge = int(input())
+connected = [[] for _ in range(N+1)]
+visited = [False for _ in range(N+1)]
+
+for _ in range(edge):
+    a, b = map(int, input().split())
+    connected[a].append(b)
+    connected[b].append(a)
+
+def bfs(v, connected):
+    queue = deque()
+    queue.append(v)
+    visited[v] = True
+
+    count = 0
+    while queue:
+        now = queue.popleft()
+        for neighbor in connected[now]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                count += 1
+                queue.append(neighbor)
+
+    return count
+
+print(bfs(1, connected))
+
+
+# https://www.acmicpc.net/problem/2630
+# 색종이 만들기
+
+N = int(input())
+paper = []
+
+for _ in range(N):
+    paper.append(list(map(int, input().split())))
+
+blue = 0
+white = 0
+
+def count_paper(x, y, n):
+    global blue
+    global white
+    
+    for i in range(n):
+        for j in range(n):
+            if paper[x+i][y+j] != paper[x][y]:
+                for k in range(2):
+                    for l in range(2):
+                        new_n = n//2
+                        count_paper(x+k*new_n, y+l*new_n, new_n)
+                return
+    
+    if paper[x][y] == 0:
+        white += 1
+    else:
+        blue += 1
+
+count_paper(0, 0, N)
+print(white)
+print(blue)
+
+# https://www.acmicpc.net/problem/2667
+# 단지번호붙이기
+
+from collections import deque
+
+
+N = int(input())
+M = []
+for _ in range(N):
+    M.append(list(map(int, list(input()))))
+
+visited = [[False for _ in range(N)] for _ in range(N)]
+queue = deque()
+# count = 0
+apartment = []
+for i in range(N):
+    for j in range(N):
+        if M[i][j] == 1 and not visited[i][j]:
+            queue.append((i, j))
+            visited[i][j] = True
+            # count += 1
+            home = 1
+            while queue:
+                x, y = queue.popleft()
+                for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1)):
+                    if x+dx < 0 or x+dx >= N or y+dy < 0 or y+dy >= N:
+                        continue 
+                    if M[x+dx][y+dy] == 1 and not visited[x+dx][y+dy]:
+                        visited[x+dx][y+dy] = True
+                        queue.append((x+dx, y+dy))
+                        home += 1
+            apartment.append(home)
+
+print(len(apartment))
+print(*sorted(apartment), sep='\n')
