@@ -24,7 +24,7 @@ def dijkstra(start):
     dist = [10e9 for _ in range(N+1)]
     dist[start] = 0
     q = []
-    heapq.heappush(q, (0, start))
+    heapq.heappush(q, (0, start)) # (힙으로 만들 리스트, (거리, 도착지))
 
     while q:
         now_dist, node = heapq.heappop(q)
