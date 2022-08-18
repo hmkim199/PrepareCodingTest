@@ -1,5 +1,5 @@
-# https://www.acmicpc.net/problem/1865
-# 웜홀
+# https://www.acmicpc.net/problem/1916
+# 최소비용 구하기
 
 import heapq
 import sys
