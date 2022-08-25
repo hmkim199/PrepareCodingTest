@@ -240,15 +240,12 @@
 # 점프와 순간 이동
 
 def solution(n):
-    def iron_suit(n):
-        if n == 1:
-            return 1
-        if n%2 == 0:
-            return iron_suit(n//2)
-        else:
-            return iron_suit(n-1) + 1
-    
-    return iron_suit(n)
+    if n == 1:
+        return 1
+    if n%2 == 0:
+        return solution(n//2)
+    else:
+        return solution(n-1) + 1
 
 print(solution(5)) # 2
 print(solution(6)) # 2
