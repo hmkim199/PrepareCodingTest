@@ -216,21 +216,38 @@
 
 # 모르겠다!!!!!!!!!!!!!!!!!!!!!! 검색 및 다시 차근차근 생각해서 겨우 풂
 
+# def solution(n):
+#     if n % 2 == 1:
+#         return 0
+    
+#     dp = [0 for _ in range(n//2+1)]
+#     dp[0] = 1
+#     dp[1] = 3
+
+#     for i in range(2, len(dp)):
+#         dp[i] = dp[i-1] * dp[1]
+#         for j in range(i-1):
+#             dp[i] += 2 * dp[j]
+    
+#     return dp[n//2] % 1000000007
+
+# print(solution(4)) # 11
+# print(solution(6)) # 41
+# print(solution(8)) # 153
+
 def solution(n):
-    if n % 2 == 1:
-        return 0
+    dp = [n for _ in range(n+1)]
+    dp[0] = 0
+    dp[1] = 1
     
-    dp = [0 for _ in range(n//2+1)]
-    dp[0] = 1
-    dp[1] = 3
+    for i in range(1, len(dp)):
+        pos = i
+        while pos <= n:
+            dp[pos] = min(dp[i], dp[pos-1] + 1)
+            pos *= 2
 
-    for i in range(2, len(dp)):
-        dp[i] = dp[i-1] * dp[1]
-        for j in range(i-1):
-            dp[i] += 2 * dp[j]
-    
-    return dp[n//2] % 1000000007
+    return dp[n]
 
-print(solution(4)) # 11
-print(solution(6)) # 41
-print(solution(8)) # 153
+print(solution(5)) # 2
+print(solution(6)) # 2
+print(solution(5000)) # 5
