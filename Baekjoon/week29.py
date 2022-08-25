@@ -235,18 +235,20 @@
 # print(solution(6)) # 41
 # print(solution(8)) # 153
 
-def solution(n):
-    dp = [n for _ in range(n+1)]
-    dp[0] = 0
-    dp[1] = 1
-    
-    for i in range(1, len(dp)):
-        pos = i
-        while pos <= n:
-            dp[pos] = min(dp[i], dp[pos-1] + 1)
-            pos *= 2
 
-    return dp[n]
+# https://school.programmers.co.kr/learn/courses/30/lessons/12980
+# 점프와 순간 이동
+
+def solution(n):
+    def iron_suit(n):
+        if n == 1:
+            return 1
+        if n%2 == 0:
+            return iron_suit(n//2)
+        else:
+            return iron_suit(n-1) + 1
+    
+    return iron_suit(n)
 
 print(solution(5)) # 2
 print(solution(6)) # 2
