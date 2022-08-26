@@ -236,32 +236,65 @@
 # print(solution(8)) # 153
 
 
-# https://school.programmers.co.kr/learn/courses/30/lessons/12980
-# 점프와 순간 이동
+# # https://school.programmers.co.kr/learn/courses/30/lessons/12980
+# # 점프와 순간 이동
 
-def solution(n):
-    if n == 1:
-        return 1
-    if n%2 == 0:
-        return solution(n//2)
-    else:
-        return solution(n-1) + 1
+# def solution(n):
+#     if n == 1:
+#         return 1
+#     if n%2 == 0:
+#         return solution(n//2)
+#     else:
+#         return solution(n-1) + 1
 
-print(solution(5)) # 2
-print(solution(6)) # 2
-print(solution(5000)) # 5
+# print(solution(5)) # 2
+# print(solution(6)) # 2
+# print(solution(5000)) # 5
 
 
-# https://school.programmers.co.kr/learn/courses/30/lessons/70129
-# 이진 변환 반복하기
+# # https://school.programmers.co.kr/learn/courses/30/lessons/70129
+# # 이진 변환 반복하기
 
-def solution(s):
-    answer = [0, 0] # 이진 변환 횟수, 제거한 0의 개수
+# def solution(s):
+#     answer = [0, 0] # 이진 변환 횟수, 제거한 0의 개수
     
-    while s != "1":
-        zero = s.count('0')
-        answer[1] += zero
-        answer[0] += 1
-        s = str(bin(len(s) - zero))[2:]
+#     while s != "1":
+#         zero = s.count('0')
+#         answer[1] += zero
+#         answer[0] += 1
+#         s = str(bin(len(s) - zero))[2:]
         
+#     return answer
+
+
+# https://school.programmers.co.kr/learn/courses/30/lessons/17680
+# [1차] 캐시
+
+# 정답률 75퍼센트..
+def solution(cacheSize, cities):
+    answer = 0
+    cacheHit = 1
+    cacheMiss = 5
+    if cacheSize == 0:
+        return len(cities) * cacheMiss
+
+    cache = [None for _ in range(cacheSize)]
+    idx = 0
+    for city in cities:
+        city = city.lower()
+        if city not in cache: # 캐시 미스
+            cache[idx] = city
+            answer += cacheMiss
+            idx = (idx + 1) % cacheSize
+        else: # 캐시 히트
+            answer += cacheHit
+            
     return answer
+
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 50
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"])) # 21
+print(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 60
+print(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 52
+print(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])) # 16
+print(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 25 
+print(solution(3, ["A","B","A"])) # 11
