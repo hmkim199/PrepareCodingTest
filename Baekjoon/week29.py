@@ -270,7 +270,10 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/17680
 # [1차] 캐시
 
-# 정답률 75퍼센트..
+# LRU의 개념을 다시 공부했더니 해결. 최신화를 해줘야함
+
+from collections import deque
+
 def solution(cacheSize, cities):
     answer = 0
     cacheHit = 1
@@ -278,16 +281,19 @@ def solution(cacheSize, cities):
     if cacheSize == 0:
         return len(cities) * cacheMiss
 
-    cache = [None for _ in range(cacheSize)]
-    idx = 0
+    cache = deque()
     for city in cities:
         city = city.lower()
         if city not in cache: # 캐시 미스
-            cache[idx] = city
+            if len(cache) >= cacheSize:
+                cache.popleft()
+            cache.append(city)
             answer += cacheMiss
-            idx = (idx + 1) % cacheSize
+
         else: # 캐시 히트
             answer += cacheHit
+            cache.remove(city)
+            cache.append(city)
             
     return answer
 
