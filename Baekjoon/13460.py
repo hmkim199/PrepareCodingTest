@@ -7,9 +7,7 @@ from collections import deque
 
 N, M = map(int, input().split())
 board = [[None for _ in range(M)] for _ in range(N)]
-red = 0, 0
-blue = 0, 0
-hole = 0, 0
+red = blue = hole = 0, 0
 
 for i in range(N):
     s = input()
@@ -27,7 +25,8 @@ for i in range(N):
 visited = set()
 visited.add((red, blue))
 
-def go_straight(target, dx, dy, red, blue, visited = None):
+# 가는 방향에 장애물 없는 곳까지 이동하는 함수
+def go_straight(target, dx, dy, red, blue):
     global board
 
     new_x = target[0] + dx
@@ -38,7 +37,7 @@ def go_straight(target, dx, dy, red, blue, visited = None):
         new_x = target[0] + dx
         new_y = target[1] + dy
     
-    if (new_x, new_y) == hole:
+    if (new_x, new_y) == hole: # 구멍이면 구멍으로 이동
         target = new_x, new_y
         
     return target
@@ -53,29 +52,22 @@ def marble(R, B, O):
             continue
 
         for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-            R = go_straight(red, dx, dy, red, blue, visited)
-            if (R[0]+dx, R[1]+dy) == blue:
-                B = go_straight(blue, dx, dy, R, blue)
-                if (B[0]+dx, B[1]+dy) == hole:
-                    continue
-                if R == hole:
-                    return move + 1
-                R = go_straight(R, dx, dy, R, B, visited)
+            # 먼저 R 이동. 이동 후 R 다음 칸이 B이면 B 먼저 이동 후 다시 R 이동.
+            R = go_straight(red, dx, dy, red, blue)
+            B = go_straight(blue, dx, dy, R, blue)
             
-            else:
-                B = go_straight(blue, dx, dy, R, blue)
-                if R == hole:
-                    if R != B:
-                        # min_move = min(min_move, move+1)
-                        return move + 1
-                    continue
-                elif B == hole:
-                    continue
+            if B == O:
+                continue
+            
+            if R == O:
+                return move + 1
+            
+            if (R[0]+dx, R[1]+dy) == blue:
+                R = go_straight(R, dx, dy, R, B)
 
-            if red != R or blue != B:
-                if (R, B) not in visited:
-                    visited.add((R, B))
-                    q.append((R, B, move+1))
+            if (red != R or blue != B) and (R, B) not in visited:
+                visited.add((R, B))
+                q.append((R, B, move+1))
         
     return min_move
 
