@@ -267,59 +267,118 @@
 #     return answer
 
 
-# https://school.programmers.co.kr/learn/courses/30/lessons/17680
-# [1차] 캐시
+# # https://school.programmers.co.kr/learn/courses/30/lessons/17680
+# # [1차] 캐시
 
-# LRU의 개념을 다시 공부했더니 해결. 최신화를 해줘야함
+# # LRU의 개념을 다시 공부했더니 해결. 최신화를 해줘야함
 
-from collections import deque
+# from collections import deque
 
-def solution(cacheSize, cities):
-    answer = 0
-    cacheHit = 1
-    cacheMiss = 5
-    if cacheSize == 0:
-        return len(cities) * cacheMiss
+# def solution(cacheSize, cities):
+#     answer = 0
+#     cacheHit = 1
+#     cacheMiss = 5
+#     if cacheSize == 0:
+#         return len(cities) * cacheMiss
 
-    cache = deque()
-    for city in cities:
-        city = city.lower()
-        if city not in cache: # 캐시 미스
-            if len(cache) >= cacheSize:
-                cache.popleft()
-            cache.append(city)
-            answer += cacheMiss
+#     cache = deque()
+#     for city in cities:
+#         city = city.lower()
+#         if city not in cache: # 캐시 미스
+#             if len(cache) >= cacheSize:
+#                 cache.popleft()
+#             cache.append(city)
+#             answer += cacheMiss
 
-        else: # 캐시 히트
-            answer += cacheHit
-            cache.remove(city)
-            cache.append(city)
+#         else: # 캐시 히트
+#             answer += cacheHit
+#             cache.remove(city)
+#             cache.append(city)
             
-    return answer
+#     return answer
 
-print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 50
-print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"])) # 21
-print(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 60
-print(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 52
-print(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])) # 16
-print(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 25 
-print(solution(3, ["A","B","A"])) # 11
+# print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 50
+# print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"])) # 21
+# print(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 60
+# print(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])) # 52
+# print(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])) # 16
+# print(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 25 
+# print(solution(3, ["A","B","A"])) # 11
 
 
-# https://school.programmers.co.kr/learn/courses/30/lessons/12905
-# 가장 큰 정사각형 찾기
+# # https://school.programmers.co.kr/learn/courses/30/lessons/12905
+# # 가장 큰 정사각형 찾기
 
-# 몰라서 검색해서 풂. dfs 이런건줄 알았는데 dp라니..
-def solution(board):
-    total = 0
-    for b in board:
-        total += sum(b)
-    answer = 1 if total else 0
+# # 몰라서 검색해서 풂. dfs 이런건줄 알았는데 dp라니..
+# def solution(board):
+#     total = 0
+#     for b in board:
+#         total += sum(b)
+#     answer = 1 if total else 0
     
-    for i in range(1, len(board)):
-        for j in range(1, len(board[0])):
-            if 0 not in (board[i-1][j-1], board[i-1][j], board[i][j-1], board[i][j]):
-                board[i][j] = min(board[i-1][j-1], board[i-1][j], board[i][j-1]) + 1
-                answer = max(answer, board[i][j])
+#     for i in range(1, len(board)):
+#         for j in range(1, len(board[0])):
+#             if 0 not in (board[i-1][j-1], board[i-1][j], board[i][j-1], board[i][j]):
+#                 board[i][j] = min(board[i-1][j-1], board[i-1][j], board[i][j-1]) + 1
+#                 answer = max(answer, board[i][j])
     
-    return answer ** 2
+#     return answer ** 2
+
+
+# https://school.programmers.co.kr/learn/courses/30/lessons/17683
+# [3차] 방금그곡
+
+def get_scale(s):
+    scale = []
+    for i in range(len(s)):
+        if s[i] != "#":
+            scale.append(s[i])
+        else:
+            scale[-1] += s[i]
+    return scale
+
+def is_target_in_melody(target, melody):
+    found = False
+    for i in range(len(melody)):
+        if melody[i] == target[0]:
+            if i+len(target) > len(melody):
+                continue
+            found = True
+            for j in range(1, len(target)):
+                if melody[i+j] != target[j]:
+                    found = False
+                    break
+        if found:
+            break
+    return found
+
+def solution(m, musicinfos):
+    answer = ''
+    infos = {}
+    target = get_scale(m)
+
+    for info in musicinfos:
+        start, end, title, melodies = info.split(",")
+        start_H, start_M = map(int, start.split(":"))
+        end_h, end_M = map(int, end.split(":"))
+        run_time = (end_h * 60 + end_M) - (start_H * 60 + start_M)
+        infos[title] = run_time
+        melody = get_scale(melodies)
+
+        while len(melody) < run_time:
+            melody *= 2
+        melody = melody[:run_time]
+
+        found = is_target_in_melody(target, melody)
+        if found:
+            if not answer:
+                answer = title
+            elif infos[answer] < infos[title]:
+                answer = title
+
+    return answer if answer else '(None)'
+
+# print(solution("ABCDEFG", ["12:00,12:14,HELLO,CDEFGAB", "13:00,13:05,WORLD,ABCDEF"])) # HELLO
+# print(solution("CC#BCC#BCC#BCC#B", ["03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B"])) # FOO
+# print(solution("ABC", ["12:00,12:14,HELLO,C#DEFGAB", "13:00,13:05,WORLD,ABCDEF"])) # WORLD
+print(solution("C#C", ["12:00,12:06,HELLO,C#C#CC#"])) # HELLO
