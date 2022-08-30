@@ -304,3 +304,22 @@ print(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "
 print(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])) # 16
 print(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])) # 25 
 print(solution(3, ["A","B","A"])) # 11
+
+
+# https://school.programmers.co.kr/learn/courses/30/lessons/12905
+# 가장 큰 정사각형 찾기
+
+# 몰라서 검색해서 풂. dfs 이런건줄 알았는데 dp라니..
+def solution(board):
+    total = 0
+    for b in board:
+        total += sum(b)
+    answer = 1 if total else 0
+    
+    for i in range(1, len(board)):
+        for j in range(1, len(board[0])):
+            if 0 not in (board[i-1][j-1], board[i-1][j], board[i][j-1], board[i][j]):
+                board[i][j] = min(board[i-1][j-1], board[i-1][j], board[i][j-1]) + 1
+                answer = max(answer, board[i][j])
+    
+    return answer ** 2
