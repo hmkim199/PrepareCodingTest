@@ -1,7 +1,6 @@
 # https://www.acmicpc.net/problem/13460
 # 구슬 탈출 2
 
-# 86퍼에서 틀렸습니다
 from collections import deque
 
 
