@@ -12,6 +12,10 @@
 #     dictionary.sort()
 #     return dictionary.index(tuple(word))+1
 
+
+# https://school.programmers.co.kr/learn/courses/30/lessons/86971
+# 전력망을 둘로 나누기
+
 from collections import deque
 
 def bfs(tree, start):
