@@ -1,9 +1,10 @@
 # https://www.acmicpc.net/problem/2206
 # 벽 부수고 이동하기
 
-# 20퍼센트 대에서 틀렸습니다
+# 5퍼에서 시간초과
 
 from collections import deque
+from copy import deepcopy
 
 
 N, M = map(int, input().split())
@@ -18,9 +19,9 @@ def bfs(matrix, M, N):
     visited = [[False for _ in range(M)] for _ in range(N)]
     visited[0][0] = True
     q = deque()
-    q.append([0, 0, 1, False]) # x, y, 최단거리, 벽 부쉈는지
+    q.append([0, 0, 1, False, visited]) # x, y, 최단거리, 벽 부쉈는지
     while q:
-        i, j, mini, is_crashed = q.popleft()
+        i, j, mini, is_crashed, visited = q.popleft()
         if i == N-1 and j == M-1:
             minimum = min(minimum, mini)
             continue
@@ -32,12 +33,12 @@ def bfs(matrix, M, N):
                 if matrix[x][y] == 0:
                     if not visited[x][y]:
                         visited[x][y] = True
-                        q.append([x, y, mini+1, is_crashed])
+                        q.append([x, y, mini+1, is_crashed, visited])
                 
                 else:
                     if not is_crashed and not visited[x][y]:
                         visited[x][y] = True
-                        q.append([x, y, mini+1, True])
+                        q.append([x, y, mini+1, True, deepcopy(visited)])
 
     return minimum if minimum < 10e9 else -1
 
