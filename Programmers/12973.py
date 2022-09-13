@@ -14,5 +14,3 @@ def solution(s):
         return 0
     return 1
     
-
-    return answer
