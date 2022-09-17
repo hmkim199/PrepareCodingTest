@@ -1,6 +1,12 @@
 # https://www.acmicpc.net/problem/14502
 # 연구소
 
+"""
+1. 벽 3개 세워서 board 만들기 -> (0, 0) ~ (N-1, M-1) 중 3개 고르기 -> combination
+2. 각 board bfs로 바이러스 퍼뜨리기
+3. 각 board에서 안전영역 갯수 세기
+"""
+
 from collections import deque
 from copy import deepcopy
 from itertools import combinations
