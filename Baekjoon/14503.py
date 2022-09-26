@@ -9,31 +9,31 @@ board = []
 for _ in range(N):
     board.append(list(map(int, input().split())))
 
-visited = [[False for _ in range(M)] for _ in range(N)]
+cleaned = [[False for _ in range(M)] for _ in range(N)]
 
 while True:
-    if not visited[r][c]:
-        visited[r][c] = True
+    if not cleaned[r][c]:
+        cleaned[r][c] = True
 
     for _ in range(4):
-        d = (d - 1) % len(dir)
-        new_x = r + dir[d][0]
-        new_y = c + dir[d][1]
-        if 0 <= new_x < N and 0 <= new_y < M and board[new_x][new_y] != 1 and not visited[new_x][new_y]:
-            visited[new_x][new_y] = True
-            r = new_x
-            c = new_y
+        d = (d - 1) % len(dir) # 왼쪽 회전
+        new_r = r + dir[d][0] # 회전한 방향으로 이동
+        new_c = c + dir[d][1]
+        if 0 <= new_r < N and 0 <= new_c < M and board[new_r][new_c] != 1 and not cleaned[new_r][new_c]:
+            cleaned[new_r][new_c] = True
+            r = new_r
+            c = new_c
             break
     else:
-        r -= dir[d][0]
+        r -= dir[d][0] # 기존 방향으로 후진
         c -= dir[d][1]
         if board[r][c] == 1:
             break
 
-clean = 0
+count = 0
 for i in range(N):
     for j in range(M):
-        if visited[i][j]:
-            clean += 1
+        if cleaned[i][j]:
+            count += 1
 
-print(clean)
+print(count)
