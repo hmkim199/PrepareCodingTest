@@ -6,10 +6,7 @@
 #     """
 #     대결 후 다음 라운드에 가지는 숫자 리턴.
 #     """
-#     if num % 2 == 0:
-#         return num // 2
-#     else:
-#         return (num+1) // 2
+#     return (num+1) // 2
 
 # def solution(n,a,b):
 #     answer = 1
@@ -25,3 +22,19 @@
 #             new_b = next_number(new_b)
 #             answer += 1
 #     return answer + 1
+
+
+# 실패, 런타임 에러
+# from math import log2
+
+# def solution(n,a,b):
+#     answer = 0
+#     a, b = min(a, b), max(a, b)
+#     if a % 2 == 1:
+#         a += 1
+#     if b % 2 == 1:
+#         b += 1
+    
+#     answer = int(log2(b-a)) + 1
+
+#     return answer
