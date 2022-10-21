@@ -38,3 +38,17 @@
 #     answer = int(log2(b-a)) + 1
 
 #     return answer
+
+# 시간초과였던 처음 풀이에서 한끝 차이인 것 같은데 통과함. 역시 재귀호출이 시간 오래 걸리네..
+def solution(n,a,b):
+    answer = 0
+    new_a, new_b = min(a, b), max(a, b)
+    
+    while True:
+        if new_b % 2 == 0 and new_b - 1 == new_a:
+            return answer + 1
+        else:
+            new_a = (new_a+1) // 2
+            new_b = (new_b+1) // 2
+            answer += 1
+    return answer + 1
